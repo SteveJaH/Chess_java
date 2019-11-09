@@ -35,14 +35,15 @@ public class BoardPanel extends JPanel implements Observer {
     }
 
     public void submitMoveRequest(char originFile, int originRank, char destinationFile, int destinationRank) {
-        //Component[] tmp = boardLayeredPane.getComponentsInLayer(JLayeredPane.DRAG_LAYER);
-        //if (tmp.length != 0) {
-            if (getSquarePanel(originFile, originRank).getComponent(0) != null) {
+        Component[] tmp = boardLayeredPane.getComponentsInLayer(JLayeredPane.DRAG_LAYER);
+        if (getSquarePanel(originFile, originRank).getComponent(0) != null) {
                 getSquarePanel(originFile, originRank).getComponent(0).setVisible(true);
                 gameModel.onMoveRequest(originFile, originRank, destinationFile, destinationRank);
-            }
-        }//I added this but !!!!!!!!!! Rook disappears
-    //}
+                System.out.println("hi");
+                System.out.println(tmp.length);
+        }
+    }
+
     public void executeMove(Move move) {
         JPanel originSquarePanel = getSquarePanel(move.getOriginFile(), move.getOriginRank());
         JPanel destinationSquarePanel = getSquarePanel(move.getDestinationFile(), move.getDestinationRank());
@@ -65,26 +66,24 @@ public class BoardPanel extends JPanel implements Observer {
     }
 
     public void executeDrag(int dragX, int dragY) {
-        Component[] tmp = boardLayeredPane.getComponentsInLayer(JLayeredPane.DRAG_LAYER);
-        System.out.println(tmp.length);
-        if (tmp.length != 0) {
-            JLabel draggedPieceImageLabel = (JLabel) tmp[0];
+        JLabel draggedPieceImageLabel = (JLabel) boardLayeredPane.getComponentsInLayer(JLayeredPane.DRAG_LAYER)[0]; //[0] 있었음
 
-            //JLabel draggedPieceImageLabel = (JLabel) boardLayeredPane.getComponentsInLayer(JLayeredPane.DRAG_LAYER)[0]; //[0] 있었음
-
-            if (draggedPieceImageLabel != null) {
-                draggedPieceImageLabel.setLocation(dragX, dragY);
-            }
+        if (draggedPieceImageLabel != null) {
+            draggedPieceImageLabel.setLocation(dragX, dragY);
         }
+
     }
 
     public void postDrag() { //여기 고침 error of submitMoverRequest so Added
-        Component[] tmp2 = boardLayeredPane.getComponentsInLayer(JLayeredPane.DRAG_LAYER);
-        if (tmp2.length != 0) {
-            JLabel draggedPieceImageLabel = (JLabel) tmp2[0];
-            boardLayeredPane.remove(draggedPieceImageLabel);
-            boardLayeredPane.repaint();
-        }
+        JLabel draggedPieceImageLabel = (JLabel) boardLayeredPane.getComponentsInLayer(JLayeredPane.DRAG_LAYER)[0]; //[0] 있었음
+
+        boardLayeredPane.remove(draggedPieceImageLabel);
+        boardLayeredPane.repaint();
+    }
+    //I made it
+    public int numDrag() {
+        Component[] tmp = boardLayeredPane.getComponentsInLayer(JLayeredPane.DRAG_LAYER);
+        return tmp.length;
     }
 
     public JPanel getSquarePanel(char file, int rank) {

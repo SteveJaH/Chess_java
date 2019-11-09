@@ -33,7 +33,7 @@ public class PieceDragAndDropListener implements MouseListener, MouseMotionListe
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if (dragging) {
+        if (dragging && boardPanel.numDrag()==1) { // I made it!
             boardPanel.postDrag();
             boardPanel.submitMoveRequest(originFile, originRank, calculateFile(e), calculateRank(e));
         }
@@ -42,7 +42,7 @@ public class PieceDragAndDropListener implements MouseListener, MouseMotionListe
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        if (dragging) {
+        if (dragging && boardPanel.numDrag()==1) {
             boardPanel.executeDrag(e.getPoint().x - dragOffsetX, e.getPoint().y - dragOffsetY);
         } else {
             boardPanel.preDrag(originFile, originRank, e.getPoint().x - dragOffsetX, e.getPoint().y - dragOffsetY);
