@@ -21,8 +21,8 @@ public class MoveValidator {
     private static Piece.Color currentMoveColor;
 
     public static boolean validateMove(Move move) {
-        return validateMove(move, false);
-    }
+        return validateMove(move, true);
+    } //false actually
 
     public static boolean validateMove(Move move, boolean ignoreColorCheck) {
         // check for out of bounds
