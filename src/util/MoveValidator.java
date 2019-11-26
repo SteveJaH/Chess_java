@@ -76,21 +76,57 @@ public class MoveValidator {
 
     private static boolean validateClearPath(Move move) {
         // TODO-movement
-        System.out.println("here");
         List<Piece> piecesWhite;
         List<Piece> piecesBlack;
 
         piecesWhite = PieceSet.getPieces(Piece.Color.WHITE);
         piecesBlack = PieceSet.getPieces(Piece.Color.BLACK);
         PieceSet pieceInstance = PieceSet.getInstance(); //???????????????????
-        piecesBlack = pieceInstance.getPieces(Piece.Color.WHITE);
+        piecesBlack = pieceInstance.getPieces(Piece.Color.BLACK);
 
         System.out.println(piecesBlack.size());
+
 
         switch (move.getPiece().getType()) {
             case PAWN:
                 return true;
             case ROOK:
+                Move tmp_move;
+                char i;
+                int j;
+                if(move.getDestinationFileAsInt()>move.getOriginFileAsInt()){
+                    for(i= (char) (move.getOriginFile()+1); i<move.getDestinationFile() ; i++){
+                        tmp_move = new Move(move.getOriginFile(), move.getOriginRank(), i, move.getDestinationRank());
+                        if (tmp_move.getCapturedPiece() != null) {
+                            return false;
+                        }
+                    }
+                }
+                else if(move.getDestinationRank()>move.getOriginRank()){
+                    for(j=move.getOriginRank()+1; j<move.getDestinationRank() ; j++){
+                        tmp_move = new Move(move.getOriginFile(), move.getOriginRank(), move.getDestinationFile(), j);
+                        if (tmp_move.getCapturedPiece() != null) {
+                            return false;
+                        }
+                    }
+                }
+                else if(move.getDestinationFileAsInt()<move.getOriginFileAsInt()){
+                    for(i= (char) (move.getOriginFile()-1); i>move.getDestinationFile() ; i--){
+                        tmp_move = new Move(move.getOriginFile(), move.getOriginRank(), i, move.getDestinationRank());
+                        if (tmp_move.getCapturedPiece() != null) {
+                            return false;
+                        }
+                    }
+                }
+                else if(move.getDestinationRank()<move.getOriginRank()){
+                    for(j=move.getOriginRank()-1; j>move.getDestinationRank() ; j--){
+                        tmp_move = new Move(move.getOriginFile(), move.getOriginRank(), move.getDestinationFile(), j);
+                        if (tmp_move.getCapturedPiece() != null) {
+                            return false;
+                        }
+                    }
+                }
+
                 /*for(Piece one_piece : piecesBlack){
 
                 }*/
