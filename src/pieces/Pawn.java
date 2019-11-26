@@ -15,15 +15,26 @@ public class Pawn extends Piece {
         if ((move.getCapturedPiece() == null)
                 || (move.getCapturedPiece() != null
                     && !move.getPiece().getColor().equals(move.getCapturedPiece().getColor()))) {
-            // along file
-            if (move.getDestinationFile() == move.getOriginFile()
-                    && move.getDestinationRank() != move.getOriginRank()) {
-                return true;
+            if(move.getPiece().getColor()==Piece.Color.WHITE){
+                if(move.getOriginRank()==2){
+                    if(move.getDestinationRank()-move.getOriginRank()==2 || move.getDestinationRank()-move.getOriginRank()==1)
+                        return true;
+                }
+                //8 if it goes to end !!!!!!!
+                else{
+                    if(move.getDestinationRank()-move.getOriginRank()==1)
+                        return true;
+                }
             }
-            // along rank
-            if (move.getDestinationFile() != move.getOriginFile()
-                    && move.getDestinationRank() == move.getOriginRank()) {
-                return true;
+            else{
+                if(move.getOriginRank()==7){
+                    if(move.getDestinationRank()-move.getOriginRank()==-2 || move.getDestinationRank()-move.getOriginRank()==-1)
+                        return true;
+                }
+                else{
+                    if(move.getDestinationRank()-move.getOriginRank()==-1)
+                        return true;
+                }
             }
         }
 

@@ -15,16 +15,8 @@ public class Bishop extends Piece {
         if ((move.getCapturedPiece() == null)
                 || (move.getCapturedPiece() != null
                     && !move.getPiece().getColor().equals(move.getCapturedPiece().getColor()))) {
-            // along file
-            if (move.getDestinationFile() == move.getOriginFile()
-                    && move.getDestinationRank() != move.getOriginRank()) {
+            if(Math.abs(move.getDestinationFileAsInt()-move.getOriginFileAsInt())==Math.abs(move.getDestinationRank()-move.getOriginRank()))
                 return true;
-            }
-            // along rank
-            if (move.getDestinationFile() != move.getOriginFile()
-                    && move.getDestinationRank() == move.getOriginRank()) {
-                return true;
-            }
         }
 
         // all other cases

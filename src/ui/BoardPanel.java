@@ -39,8 +39,6 @@ public class BoardPanel extends JPanel implements Observer {
         if (getSquarePanel(originFile, originRank).getComponent(0) != null) {
                 getSquarePanel(originFile, originRank).getComponent(0).setVisible(true);
                 gameModel.onMoveRequest(originFile, originRank, destinationFile, destinationRank);
-                System.out.println("hi");
-                System.out.println(tmp.length);
         }
     }
 

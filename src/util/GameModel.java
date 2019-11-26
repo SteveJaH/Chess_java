@@ -38,7 +38,7 @@ public class GameModel extends Observable {
         if (MoveValidator.validateMove(move)) {
             executeMove(move);
         } else {
-            //
+            System.out.println("Wrong Move\n");//
         }
     }
 

@@ -91,7 +91,8 @@ public class PieceSet {
 
         pieceSet.put(Piece.Color.WHITE, whitePieces);
         pieceSet.put(Piece.Color.BLACK, blackPieces);
-//until here is the reference code
+        //until here is the reference code
+
         List<Piece> whiteBishops = new ArrayList<Piece>();
         List<Piece> blackBishops = new ArrayList<Piece>();
         for (int i = 0; i < 2; i++) {

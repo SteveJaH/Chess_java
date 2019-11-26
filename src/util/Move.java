@@ -63,4 +63,66 @@ public class Move {
         return destinationRank;
     }
 
+    public int getOriginFileAsInt() {
+        int a=0;
+        switch (originFile) {
+            case 'a':
+                a=1;
+                break;
+            case 'b':
+                a=2;
+                break;
+            case 'c':
+                a=3;
+                break;
+            case 'd':
+                a=4;
+                break;
+            case 'e':
+                a=5;
+                break;
+            case 'f':
+                a=6;
+                break;
+            case 'g':
+                a=7;
+                break;
+            case 'h':
+                a=8;
+                break;
+        }
+        return a;
+    }
+
+    public int getDestinationFileAsInt() {
+        int a=0;
+        switch (destinationFile) {
+            case 'a':
+                a=1;
+                break;
+            case 'b':
+                a=2;
+                break;
+            case 'c':
+                a=3;
+                break;
+            case 'd':
+                a=4;
+                break;
+            case 'e':
+                a=5;
+                break;
+            case 'f':
+                a=6;
+                break;
+            case 'g':
+                a=7;
+                break;
+            case 'h':
+                a=8;
+                break;
+        }
+        return a;
+    }
 }
+

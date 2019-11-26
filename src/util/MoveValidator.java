@@ -21,7 +21,7 @@ public class MoveValidator {
     private static Piece.Color currentMoveColor;
 
     public static boolean validateMove(Move move) {
-        return validateMove(move, true);
+        return validateMove(move, false);
     } //false actually
 
     public static boolean validateMove(Move move, boolean ignoreColorCheck) {
@@ -34,33 +34,28 @@ public class MoveValidator {
 
         // check for valid origin
         if (move.getPiece() == null) {
-            System.out.println("1");
             return false;
         }
 
         // check for valid color
         if (!move.getPiece().getColor().equals(currentMoveColor) && !ignoreColorCheck) {
-            System.out.println("2");
             return false;
         }
 
         // check for valid destination
         if (move.getCapturedPiece() != null) {
             if (move.getPiece().getColor().equals(move.getCapturedPiece().getColor())) {
-                System.out.println("3");
                 return false;
             }
         }
 
         // check for piece rule
         if (!move.getPiece().validateMove(move)) {
-            System.out.println("4");
             return false;
         }
 
         // check for clear path
         if (!validateClearPath(move)) {
-            System.out.println("5");
             return false;
         }
 
@@ -81,34 +76,35 @@ public class MoveValidator {
 
     private static boolean validateClearPath(Move move) {
         // TODO-movement
+        System.out.println("here");
+        List<Piece> piecesWhite;
+        List<Piece> piecesBlack;
+
+        piecesWhite = PieceSet.getPieces(Piece.Color.WHITE);
+        piecesBlack = PieceSet.getPieces(Piece.Color.BLACK);
+        PieceSet pieceInstance = PieceSet.getInstance(); //???????????????????
+        piecesBlack = pieceInstance.getPieces(Piece.Color.WHITE);
+
+        System.out.println(piecesBlack.size());
 
         switch (move.getPiece().getType()) {
             case PAWN:
-                if(move.getPiece().getColor()==Piece.Color.WHITE){
-                    if(move.getOriginRank()==2){
-                        if(move.getDestinationRank()-move.getOriginRank()==2 || move.getDestinationRank()-move.getOriginRank()==1)
-                            return true;
-                    }
-                    //8 if it goes to end !!!!!!!
-                    else{
-                        if(move.getDestinationRank()-move.getOriginRank()==1)
-                            return true;
-                    }
-                }
-                else{
-                    if(move.getOriginRank()==7){
-                        if(move.getDestinationRank()-move.getOriginRank()==-2 || move.getDestinationRank()-move.getOriginRank()==-1)
-                            return true;
-                    }
-                    //8 if it goes to end !!!!!!!
-                    else{
-                        if(move.getDestinationRank()-move.getOriginRank()==-1)
-                            return true;
-                    }
-                }
+                return true;
+            case ROOK:
+                /*for(Piece one_piece : piecesBlack){
+
+                }*/
+                if(move.getDestinationRank()==move.getOriginRank()||move.getDestinationFile()==move.getOriginFile())
+                    return true;
+                break;
+            case BISHOP:
+                if(move.getDestinationFileAsInt()-move.getOriginFileAsInt()==move.getDestinationRank()-move.getOriginRank())
+                    return true;
+                break;
         }
 
-        return false;
+
+        return false; //////initially false dssa;nf;kjsdn;kfjsadb;jfkbasd;kfbk;sdabf !!!!!!!!!!!To test
     }
 
 }
