@@ -25,6 +25,9 @@ public class Queen extends Piece {
                     && move.getDestinationRank() == move.getOriginRank()) {
                 return true;
             }
+            if(Math.abs(move.getDestinationFileAsInt()-move.getOriginFileAsInt())==Math.abs(move.getDestinationRank()-move.getOriginRank()))
+                return true;
+
         }
 
         // all other cases

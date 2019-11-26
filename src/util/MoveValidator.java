@@ -94,12 +94,17 @@ public class MoveValidator {
                 /*for(Piece one_piece : piecesBlack){
 
                 }*/
+                PieceSet.isthere(3, 'c');
                 if(move.getDestinationRank()==move.getOriginRank()||move.getDestinationFile()==move.getOriginFile())
                     return true;
                 break;
             case KNIGHT:
                 return true;
             case BISHOP:
+                return true;
+            case QUEEN:
+                return true;
+            case KING:
                 return true;
         }
 

@@ -16,14 +16,8 @@ public class Knight extends Piece {
                 || (move.getCapturedPiece() != null
                     && !move.getPiece().getColor().equals(move.getCapturedPiece().getColor()))) {
             // along file
-            if (move.getDestinationFile() == move.getOriginFile()
-                    && move.getDestinationRank() != move.getOriginRank()) {
-                return true;
-            }
-            // along rank
-            if (move.getDestinationFile() != move.getOriginFile()
-                    && move.getDestinationRank() == move.getOriginRank()) {
-                return true;
+                if(Math.abs(move.getDestinationFileAsInt()-move.getOriginFileAsInt())+Math.abs(move.getDestinationRank()-move.getOriginRank())==3&&Math.abs(move.getDestinationFileAsInt()-move.getOriginFileAsInt())!=0&&Math.abs(move.getDestinationRank()-move.getOriginRank())!=0){
+                    return true;
             }
         }
 

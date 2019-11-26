@@ -16,13 +16,7 @@ public class King extends Piece {
                 || (move.getCapturedPiece() != null
                     && !move.getPiece().getColor().equals(move.getCapturedPiece().getColor()))) {
             // along file
-            if (move.getDestinationFile() == move.getOriginFile()
-                    && move.getDestinationRank() != move.getOriginRank()) {
-                return true;
-            }
-            // along rank
-            if (move.getDestinationFile() != move.getOriginFile()
-                    && move.getDestinationRank() == move.getOriginRank()) {
+            if(Math.abs(move.getDestinationRank()-move.getOriginRank())<=1 && Math.abs(move.getDestinationFileAsInt()-move.getOriginFileAsInt())<=1){
                 return true;
             }
         }
