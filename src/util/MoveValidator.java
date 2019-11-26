@@ -97,10 +97,10 @@ public class MoveValidator {
                 if(move.getDestinationRank()==move.getOriginRank()||move.getDestinationFile()==move.getOriginFile())
                     return true;
                 break;
+            case KNIGHT:
+                return true;
             case BISHOP:
-                if(move.getDestinationFileAsInt()-move.getOriginFileAsInt()==move.getDestinationRank()-move.getOriginRank())
-                    return true;
-                break;
+                return true;
         }
 
 
