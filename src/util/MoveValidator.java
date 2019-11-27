@@ -86,14 +86,94 @@ public class MoveValidator {
 
         System.out.println(piecesBlack.size());
 
+        Move tmp_move;
+        char i;
+        int j;
 
         switch (move.getPiece().getType()) {
             case PAWN:
                 return true;
             case ROOK:
-                Move tmp_move;
-                char i;
-                int j;
+                if(move.getDestinationFileAsInt()>move.getOriginFileAsInt()){
+                    for(i= (char) (move.getOriginFile()+1); i<move.getDestinationFile() ; i++){
+                        tmp_move = new Move(move.getOriginFile(), move.getOriginRank(), i, move.getDestinationRank());
+                        if (tmp_move.getCapturedPiece() != null) {
+                            return false;
+                        }
+                    }
+                }
+                else if(move.getDestinationRank()>move.getOriginRank()){
+                    System.out.println("wtf");
+                    for(j=move.getOriginRank()+1; j<move.getDestinationRank() ; j++){
+                        System.out.println("wtf2");
+                        tmp_move = new Move(move.getOriginFile(), move.getOriginRank(), move.getDestinationFile(), j);
+                        if (tmp_move.getCapturedPiece() != null) {
+                            return false;
+                        }
+                    }
+                }
+                else if(move.getDestinationFileAsInt()<move.getOriginFileAsInt()){
+                    for(i= (char) (move.getOriginFile()-1); i>move.getDestinationFile() ; i--){
+                        tmp_move = new Move(move.getOriginFile(), move.getOriginRank(), i, move.getDestinationRank());
+                        if (tmp_move.getCapturedPiece() != null) {
+                            return false;
+                        }
+                    }
+                }
+                else if(move.getDestinationRank()<move.getOriginRank()){
+                    for(j=move.getOriginRank()-1; j>move.getDestinationRank() ; j--){
+                        tmp_move = new Move(move.getOriginFile(), move.getOriginRank(), move.getDestinationFile(), j);
+                        if (tmp_move.getCapturedPiece() != null) {
+                            return false;
+                        }
+                    }
+                }
+                return true;
+                /*for(Piece one_piece : piecesBlack){
+
+                }*/
+                /*
+                PieceSet.isthere(3, 'c');
+                if(move.getDestinationRank()==move.getOriginRank()||move.getDestinationFile()==move.getOriginFile())
+                    return true;
+                 */
+            case KNIGHT:
+                return true;
+            case BISHOP:
+                if(move.getDestinationFileAsInt()>move.getOriginFileAsInt()&&move.getDestinationRank()>move.getOriginRank()){
+                    for(i= (char) (move.getOriginFile()+1), j=move.getOriginRank()+1; i<move.getDestinationFile() && j<move.getDestinationRank() ; i++, j++){
+                        tmp_move = new Move(move.getOriginFile(), move.getOriginRank(), i, j);
+                        if (tmp_move.getCapturedPiece() != null) {
+                            return false;
+                        }
+                    }
+                }
+                else if(move.getDestinationFileAsInt()>move.getOriginFileAsInt()&&move.getDestinationRank()<move.getOriginRank()){
+                    for(i= (char) (move.getOriginFile()+1), j=move.getOriginRank()-1; i<move.getDestinationFile() && j>move.getDestinationRank() ; i++, j--){
+                        tmp_move = new Move(move.getOriginFile(), move.getOriginRank(), i, j);
+                        if (tmp_move.getCapturedPiece() != null) {
+                            return false;
+                        }
+                    }
+                }
+                else if(move.getDestinationFileAsInt()<move.getOriginFileAsInt()&&move.getDestinationRank()>move.getOriginRank()){
+                    for(i= (char) (move.getOriginFile()-1), j=move.getOriginRank()+1; i>move.getDestinationFile() && j<move.getDestinationRank() ; i--, j++){
+                        tmp_move = new Move(move.getOriginFile(), move.getOriginRank(), i, j);
+                        if (tmp_move.getCapturedPiece() != null) {
+                            return false;
+                        }
+                    }
+                }
+                if(move.getDestinationFileAsInt()<move.getOriginFileAsInt()&&move.getDestinationRank()<move.getOriginRank()){
+                    for(i= (char) (move.getOriginFile()-1), j=move.getOriginRank()-1; i>move.getDestinationFile() && j>move.getDestinationRank() ; i--, j--){
+                        tmp_move = new Move(move.getOriginFile(), move.getOriginRank(), i, j);
+                        if (tmp_move.getCapturedPiece() != null) {
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            case QUEEN:
                 if(move.getDestinationFileAsInt()>move.getOriginFileAsInt()){
                     for(i= (char) (move.getOriginFile()+1); i<move.getDestinationFile() ; i++){
                         tmp_move = new Move(move.getOriginFile(), move.getOriginRank(), i, move.getDestinationRank());
@@ -126,19 +206,38 @@ public class MoveValidator {
                         }
                     }
                 }
-
-                /*for(Piece one_piece : piecesBlack){
-
-                }*/
-                PieceSet.isthere(3, 'c');
-                if(move.getDestinationRank()==move.getOriginRank()||move.getDestinationFile()==move.getOriginFile())
-                    return true;
-                break;
-            case KNIGHT:
-                return true;
-            case BISHOP:
-                return true;
-            case QUEEN:
+                if(move.getDestinationFileAsInt()>move.getOriginFileAsInt()&&move.getDestinationRank()>move.getOriginRank()){
+                    for(i= (char) (move.getOriginFile()+1), j=move.getOriginRank()+1; i<move.getDestinationFile() && j<move.getDestinationRank() ; i++, j++){
+                        tmp_move = new Move(move.getOriginFile(), move.getOriginRank(), i, j);
+                        if (tmp_move.getCapturedPiece() != null) {
+                            return false;
+                        }
+                    }
+                }
+                else if(move.getDestinationFileAsInt()>move.getOriginFileAsInt()&&move.getDestinationRank()<move.getOriginRank()){
+                    for(i= (char) (move.getOriginFile()+1), j=move.getOriginRank()-1; i<move.getDestinationFile() && j>move.getDestinationRank() ; i++, j--){
+                        tmp_move = new Move(move.getOriginFile(), move.getOriginRank(), i, j);
+                        if (tmp_move.getCapturedPiece() != null) {
+                            return false;
+                        }
+                    }
+                }
+                else if(move.getDestinationFileAsInt()<move.getOriginFileAsInt()&&move.getDestinationRank()>move.getOriginRank()){
+                    for(i= (char) (move.getOriginFile()-1), j=move.getOriginRank()+1; i>move.getDestinationFile() && j<move.getDestinationRank() ; i--, j++){
+                        tmp_move = new Move(move.getOriginFile(), move.getOriginRank(), i, j);
+                        if (tmp_move.getCapturedPiece() != null) {
+                            return false;
+                        }
+                    }
+                }
+                if(move.getDestinationFileAsInt()<move.getOriginFileAsInt()&&move.getDestinationRank()<move.getOriginRank()){
+                    for(i= (char) (move.getOriginFile()-1), j=move.getOriginRank()-1; i>move.getDestinationFile() && j>move.getDestinationRank() ; i--, j--){
+                        tmp_move = new Move(move.getOriginFile(), move.getOriginRank(), i, j);
+                        if (tmp_move.getCapturedPiece() != null) {
+                            return false;
+                        }
+                    }
+                }
                 return true;
             case KING:
                 return true;

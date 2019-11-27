@@ -16,25 +16,30 @@ public class Pawn extends Piece {
                 || (move.getCapturedPiece() != null
                     && !move.getPiece().getColor().equals(move.getCapturedPiece().getColor()))) {
             if(move.getPiece().getColor()==Piece.Color.WHITE){
-                if(move.getOriginRank()==2){
-                    if((move.getDestinationRank()-move.getOriginRank()==2 || move.getDestinationRank()-move.getOriginRank()==1)&&move.getDestinationFileAsInt()==move.getOriginFileAsInt())
-                        return true;
-                }
-                //8 if it goes to end !!!!!!!
-                else{
-                    if(move.getDestinationRank()-move.getOriginRank()==1)
-                        return true;
+                if(move.getCapturedPiece() == null){
+                    if(move.getOriginRank()==2){
+                        if((move.getDestinationRank()-move.getOriginRank()==2 || move.getDestinationRank()-move.getOriginRank()==1)&&move.getDestinationFileAsInt()==move.getOriginFileAsInt())
+                            return true;
+                    }
+                    //8 if it goes to end !!!!!!!
+                    else{
+                        if(move.getDestinationRank()-move.getOriginRank()==1 && move.getDestinationFileAsInt()==move.getOriginFileAsInt())
+                            return true;
+                    }
                 }
             }
             else{
-                if(move.getOriginRank()==7){
-                    if((move.getDestinationRank()-move.getOriginRank()==-2 || move.getDestinationRank()-move.getOriginRank()==-1)&&move.getDestinationFileAsInt()==move.getOriginFileAsInt())
-                        return true;
+                if(move.getCapturedPiece() == null){
+                    if(move.getOriginRank()==7){
+                        if((move.getDestinationRank()-move.getOriginRank()==-2 || move.getDestinationRank()-move.getOriginRank()==-1)&&move.getDestinationFileAsInt()==move.getOriginFileAsInt())
+                            return true;
+                    }
+                    else{
+                        if(move.getDestinationRank()-move.getOriginRank()==-1 && move.getDestinationFileAsInt()==move.getOriginFileAsInt())
+                            return true;
+                    }
                 }
-                else{
-                    if(move.getDestinationRank()-move.getOriginRank()==-1)
-                        return true;
-                }
+
             }
         }
 

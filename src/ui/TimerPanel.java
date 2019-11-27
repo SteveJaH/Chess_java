@@ -5,6 +5,7 @@ import util.GameModel;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.Time;
+import java.time.LocalTime;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -13,6 +14,11 @@ public class TimerPanel extends JPanel implements Observer {
     private GameModel gameModel;
     private Time whiteTime;
     private Time blackTime;
+    private Time stepsize;
+    private LocalTime whiteLocal;
+    private LocalTime blackLocal;
+    //private Calendar whiteCalendar;
+    //private Calendar blackCalendar;
 
     private JPanel displayPanel;
     private JPanel whiteTimerPanel;
@@ -29,6 +35,7 @@ public class TimerPanel extends JPanel implements Observer {
         this.gameModel = gameModel;
         whiteTime = Time.valueOf("00:00:00");
         blackTime = Time.valueOf("00:00:00");
+        //whiteCalendar.setTime((date) whiteTime);
         initialize();
         gameModel.addObserver(this);
     }
@@ -39,6 +46,14 @@ public class TimerPanel extends JPanel implements Observer {
     }
 
     public void whiteTimerTikTok() {
+        whiteLocal = whiteTime.toLocalTime();
+        whiteLocal = whiteLocal.plusSeconds(1);
+        whiteTime = Time.valueOf(whiteLocal.toString());
+        whiteTimerDigitsLabel.setText(whiteTime.toString());
+        //whiteCalendar.add(Calendar.SECOND, 1);
+        //whiteTime = Time.valueOf(String.valueOf(whiteCalendar.getTime()));
+        whiteTimerStatusPanel.setVisible(true);
+        blackTimerStatusPanel.setVisible(false);
         /*
         TODO-timer
             Update whiteTime
@@ -49,6 +64,14 @@ public class TimerPanel extends JPanel implements Observer {
     }
 
     public void blackTimerTikTok() {
+        blackLocal = blackTime.toLocalTime();
+        blackLocal = blackLocal.plusSeconds(1);
+        blackTime = Time.valueOf(blackLocal.toString());
+        blackTimerDigitsLabel.setText(blackTime.toString());
+
+
+        whiteTimerStatusPanel.setVisible(false);
+        blackTimerStatusPanel.setVisible(true);
         // TODO-timer: same with whiteTimerTikTok
     }
 

@@ -86,6 +86,15 @@ public class GameModel extends Observable {
     }
 
     private void switchTimer(Move move) {
+        if(move.getPiece().getColor() == Piece.Color.WHITE){
+            whiteTimer.stop();
+            blackTimer.start();
+        }
+        else if(move.getPiece().getColor() == Piece.Color.BLACK){
+            System.out.println(whiteTimer.toString());
+            blackTimer.stop();
+            whiteTimer.start();
+        }
         /*
         TODO-timer
             start and stop whiteTimer and blackTimer
@@ -93,6 +102,8 @@ public class GameModel extends Observable {
     }
 
     private void stopTimer() {
+        whiteTimer.stop();
+        blackTimer.stop();
         // TODO-timer: stop timers
     }
 
