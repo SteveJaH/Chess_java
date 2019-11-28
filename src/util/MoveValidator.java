@@ -5,6 +5,7 @@ import pieces.King;
 import pieces.Piece;
 import pieces.PieceSet;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MoveValidator {
@@ -65,22 +66,57 @@ public class MoveValidator {
         //return true;
     }
 
-    public static boolean isCheckMove(Move move) {
+   public static List<Piece> whiteTeams() {
+        char i;
+        int j;
+        List<Piece> whites = new ArrayList<Piece>();
+
+        for(i='a'; i<='h'; i+=1) {
+            for (j = 1; j < 8; j++) {
+               if (Board.getSquare(i, j).getCurrentPiece() != null)
+                   if (Board.getSquare(i, j).getCurrentPiece().getColor() == Piece.Color.WHITE) {
+                       whites.add(Board.getSquare(i, j).getCurrentPiece());
+                   }
+            }
+        }
+        return whites;
+   }
+
+    public static List<Piece> blackTeams() {
+        char i;
+        int j;
+        List<Piece> blacks = new ArrayList<Piece>();
+        List<Integer, Integer> blackLocation = new ArrayList<Piece>();
+
+        for(i='a'; i<='h'; i+=1) {
+            for (j = 1; j < 8; j++) {
+                if (Board.getSquare(i, j).getCurrentPiece() != null)
+                    if (Board.getSquare(i, j).getCurrentPiece().getColor() == Piece.Color.BLACK) {
+                        blacks.add(Board.getSquare(i, j).getCurrentPiece());
+                    }
+            }
+        }
+        return blacks;
+    }
+
+   public static boolean isCheckMove(Move move) {
         Move tmp_move;
         char i;
         int j;
-
+        List <Piece> whitePieces = whiteTeams();
         // TODO-check
+        if(move.getPiece().getColor() == Piece.Color.BLACK){
+            for(Piece one_piece : whitePieces){
+                tmp_move = new Move(one_piece, )
+            }
+        }
+
         for(i='a'; i<='h'; i+=1){
             for(j=1 ; j<8; j++){
                 tmp_move = new Move(move.getDestinationFile(), move.getDestinationRank(), i, j);
                 if (validateClearPath(tmp_move) && move.getPiece().validateMove(tmp_move)) {
                     if(tmp_move.getCapturedPiece()!=null) {
-                        System.out.println("maybe");
-                        System.out.println(i);
-                        System.out.println(j);
                         if(tmp_move.getCapturedPiece().getType()== Piece.Type.KING) {
-                            System.out.println("wow");
                             return true;
                         }
                     }
@@ -124,9 +160,7 @@ public class MoveValidator {
                     }
                 }
                 else if(move.getDestinationRank()>move.getOriginRank()){
-                    System.out.println("wtf");
                     for(j=move.getOriginRank()+1; j<move.getDestinationRank() ; j++){
-                        System.out.println("wtf2");
                         tmp_move = new Move(move.getOriginFile(), move.getOriginRank(), move.getDestinationFile(), j);
                         if (tmp_move.getCapturedPiece() != null) {
                             return false;
