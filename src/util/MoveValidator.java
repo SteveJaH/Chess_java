@@ -1,6 +1,7 @@
 package util;
 
 import board.Board;
+import pieces.King;
 import pieces.Piece;
 import pieces.PieceSet;
 
@@ -61,11 +62,31 @@ public class MoveValidator {
 
         currentMoveColor = currentMoveColor.equals(Piece.Color.WHITE) ? Piece.Color.BLACK : Piece.Color.WHITE;
         return true;
-        //return true; //dsaknd;kfajn;kbjs;kdjsbf;asdjbf;ksjb
+        //return true;
     }
 
     public static boolean isCheckMove(Move move) {
+        Move tmp_move;
+        char i;
+        int j;
+
         // TODO-check
+        for(i='a'; i<='h'; i+=1){
+            for(j=1 ; j<8; j++){
+                tmp_move = new Move(move.getDestinationFile(), move.getDestinationRank(), i, j);
+                if (validateClearPath(tmp_move) && move.getPiece().validateMove(tmp_move)) {
+                    if(tmp_move.getCapturedPiece()!=null) {
+                        System.out.println("maybe");
+                        System.out.println(i);
+                        System.out.println(j);
+                        if(tmp_move.getCapturedPiece().getType()== Piece.Type.KING) {
+                            System.out.println("wow");
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
         return false;
     }
 
@@ -84,7 +105,7 @@ public class MoveValidator {
         PieceSet pieceInstance = PieceSet.getInstance(); //???????????????????
         piecesBlack = pieceInstance.getPieces(Piece.Color.BLACK);
 
-        System.out.println(piecesBlack.size());
+        //System.out.println(piecesBlack.size());
 
         Move tmp_move;
         char i;

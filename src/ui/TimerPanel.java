@@ -48,7 +48,7 @@ public class TimerPanel extends JPanel implements Observer {
     public void whiteTimerTikTok() {
         whiteLocal = whiteTime.toLocalTime();
         whiteLocal = whiteLocal.plusSeconds(1);
-        whiteTime = Time.valueOf(whiteLocal.toString());
+        whiteTime = Time.valueOf(String.valueOf(whiteLocal.getHour())+':'+String.valueOf(whiteLocal.getMinute())+':'+String.valueOf(whiteLocal.getSecond()));
         whiteTimerDigitsLabel.setText(whiteTime.toString());
         //whiteCalendar.add(Calendar.SECOND, 1);
         //whiteTime = Time.valueOf(String.valueOf(whiteCalendar.getTime()));
@@ -66,9 +66,9 @@ public class TimerPanel extends JPanel implements Observer {
     public void blackTimerTikTok() {
         blackLocal = blackTime.toLocalTime();
         blackLocal = blackLocal.plusSeconds(1);
-        blackTime = Time.valueOf(blackLocal.toString());
+        blackTime = Time.valueOf(String.valueOf(blackLocal.getHour())+':'+String.valueOf(blackLocal.getMinute())+':'+String.valueOf(blackLocal.getSecond()));
+        //blackTime = Time.valueOf(blackLocal.toString());
         blackTimerDigitsLabel.setText(blackTime.toString());
-
 
         whiteTimerStatusPanel.setVisible(false);
         blackTimerStatusPanel.setVisible(true);
