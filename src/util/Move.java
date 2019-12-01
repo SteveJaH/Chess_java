@@ -124,5 +124,18 @@ public class Move {
         }
         return a;
     }
+
+    public String getInfo() {
+        String info = "";
+        info += String.valueOf(this.piece.getColor());
+        info += " " + String.valueOf(this.piece.getType());
+        info += " " + String.valueOf(this.getOriginFile());
+        info += " " + String.valueOf(this.getOriginRank());
+        info += " " + String.valueOf(this.getDestinationFile());
+        info += " " + String.valueOf(this.getDestinationRank());
+
+        return info;
+    }
+
 }
 

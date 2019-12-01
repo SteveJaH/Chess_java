@@ -62,7 +62,7 @@ public class LaunchFrame extends JFrame {
         newGameButtonPanel.setBorder(BorderFactory.createEmptyBorder(40, 50, 40, 25));
         newGameButtonPanel.add(newGameButton);
         loadGameButton = new JButton("Load Game");
-        loadGameButton.setEnabled(false);
+        loadGameButton.setEnabled(true);
         loadGameButtonPanel = new JPanel(new GridLayout(1, 1));
         loadGameButtonPanel.setBorder(BorderFactory.createEmptyBorder(40, 25, 40, 50));
         loadGameButtonPanel.add(loadGameButton);

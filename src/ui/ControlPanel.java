@@ -1,15 +1,25 @@
 package ui;
 
+import board.Board;
+import pieces.Piece;
 import util.GameModel;
+import util.State;
+import util.location;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-public class ControlPanel extends JPanel implements Observer {
+public class ControlPanel extends JPanel implements Serializable, Observer { //Observer
 
     private GameModel gameModel;
 
@@ -28,16 +38,97 @@ public class ControlPanel extends JPanel implements Observer {
         this.setLayout(new GridLayout(0, 1));
 
         undoButton = new JButton("Request Undo");
-        undoButton.setEnabled(false);
+        undoButton.setEnabled(true);
         saveButton = new JButton("Save Game");
-        saveButton.setEnabled(false);
+        saveButton.setEnabled(true);
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                State state = new State();
+                List<Piece> pieces = StatePieces();
+                List<location> locations = StateLocations();
+                state.setInput(1);
+                state.setPieces(pieces);
+                state.setLocations(locations);
+                String path = "G:\\My Drive\\GRun\\Chess_java\\src\\Data.dat";
+
+                ObjectOutputStream objOut = null;
+                FileOutputStream fileOut = null;
+                try{
+                    fileOut = new FileOutputStream(path);
+                    objOut = new ObjectOutputStream (fileOut);
+                    objOut.writeObject(state);
+
+                    if (objOut!=null){
+                        objOut.close();
+                    }
+                    else if (fileOut!=null){
+                        fileOut.close();
+                    }
+                }catch (IOException e1){
+                    e1.printStackTrace();
+                }
+                /*
+                TestData data = new TestData();
+data.setName ("test1");
+data.setNumber("1001");
+
+String path = "c:/test/testData.dat";
+
+ObjectOutputStream objOut = null;
+FileOutputStream fileOut = null;
+try{
+fileOut = new FileOutputStream(path);
+objOut = new ObjectOutputStream (fileOut);
+objOut.writeObject(data);
+}finally{
+if (objOut!=null){
+objOut.close();
+}
+else if (fileOut!=null){
+fileOut.close();
+}
+}
+                 */
+            }
+        });
         loadButton = new JButton("Load Game");
-        loadButton.setEnabled(false);
+        loadButton.setEnabled(true);
 
         this.add(undoButton);
         this.add(saveButton);
         this.add(loadButton);
         this.setPreferredSize(new Dimension(300, 200));
+    }
+
+    public static List<Piece> StatePieces() {
+        char i;
+        int j;
+        java.util.List<Piece> whites = new ArrayList<Piece>();
+
+        for(i='a'; i<='h'; i+=1) {
+            for (j = 1; j <= 8; j++) {
+                if (Board.getSquare(i, j).getCurrentPiece() != null)
+                    whites.add(Board.getSquare(i, j).getCurrentPiece());
+            }
+        }
+        return whites;
+    }
+
+    public static List<location> StateLocations() {
+        char i;
+        int j;
+        List<location> whiteLocation = new ArrayList<location>();
+
+        for(i='a'; i<='h'; i+=1) {
+            for (j = 1; j <= 8; j++) {
+                if (Board.getSquare(i, j).getCurrentPiece() != null) {
+                    location location = new location(i, j);
+                    whiteLocation.add(location);
+                }
+            }
+        }
+        return whiteLocation;
     }
 
     @Override

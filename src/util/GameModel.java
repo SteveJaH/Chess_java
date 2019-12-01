@@ -37,8 +37,6 @@ public class GameModel extends Observable {
         Move move = new Move(originFile, originRank, destinationFile, destinationRank);
         if (MoveValidator.validateMove(move)) {
             executeMove(move);
-        } else {
-            System.out.println("Wrong Move\n");//
         }
     }
 
@@ -91,7 +89,6 @@ public class GameModel extends Observable {
             blackTimer.start();
         }
         else if(move.getPiece().getColor() == Piece.Color.BLACK){
-            System.out.println(whiteTimer.toString());
             blackTimer.stop();
             whiteTimer.start();
         }

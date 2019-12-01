@@ -28,14 +28,6 @@ public class PieceSet {
         initializeKingsCoordinates();
     }
 
-    public static boolean isthere(int rank, char file){
-        List<Piece> blacks = getPieces(Piece.Color.BLACK);
-        List<Piece> whites = getPieces(Piece.Color.WHITE);
-        //System.out.println(blacks.get(0).getRank());
-        return true;
-
-    }
-
     public static List<Piece> getPieces(Piece.Color color) {
         List<Piece> piecesSameColor = new ArrayList<Piece>();
         for (Map.Entry<Piece.Type, List<Piece>> piecesEntry : pieceSet.get(color).entrySet()) {
@@ -53,6 +45,13 @@ public class PieceSet {
     public static void addCapturedPiece(Piece piece) {
         piece.setCapture(true);
         capturedPieceSet.get(piece.getColor()).push(piece);
+    }
+
+    public static void minusCapturedPiece(Piece piece) {
+        piece.setCapture(false);
+        System.out.println(capturedPieceSet.size());
+        capturedPieceSet.get(piece.getColor()).remove(piece);
+        System.out.println(capturedPieceSet.size());
     }
 
     public static List<Piece> getCapturedPieces(Piece.Color color) {

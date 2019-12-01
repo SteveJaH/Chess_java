@@ -97,7 +97,7 @@ public class GameFrame extends JFrame implements Observer{
 
         // help menu
         customPiecesMenuItem = new JMenuItem("Custom pieces...");
-        customPiecesMenuItem.setEnabled(false);
+        customPiecesMenuItem.setEnabled(true);
 
         aboutMenuItem = new JMenuItem("About");
         aboutMenuItem.addActionListener(new ActionListener() {

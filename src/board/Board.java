@@ -47,6 +47,19 @@ public class Board {
         originSquare.setCurrentPiece(null);
     }
 
+    public static void executeMove_back(Move move, Piece resurrection) {
+        Square originSquare = getSquare(move.getDestinationFile(), move.getDestinationRank());
+        Square destinationSquare = getSquare(move.getOriginFile(), move.getOriginRank());
+        if (resurrection != null) {
+            resurrection.setCapture(false);
+            PieceSet.minusCapturedPiece(resurrection);
+        }
+        destinationSquare.setCurrentPiece(originSquare.getCurrentPiece());
+        originSquare.setCurrentPiece(resurrection);
+    }
+
+
+
     private static void initializeSquares() {
         for (int i = 0; i < DIMENSION; i++) {
             for (int j = 0; j < DIMENSION; j++) {

@@ -12,36 +12,43 @@ public class Pawn extends Piece {
     @Override
     public boolean validateMove(Move move) {
         // executeMove or capture
-        if ((move.getCapturedPiece() == null)
-                || (move.getCapturedPiece() != null
-                    && !move.getPiece().getColor().equals(move.getCapturedPiece().getColor()))) {
-            if(move.getPiece().getColor()==Piece.Color.WHITE){
-                if(move.getCapturedPiece() == null){
-                    if(move.getOriginRank()==2){
-                        if((move.getDestinationRank()-move.getOriginRank()==2 || move.getDestinationRank()-move.getOriginRank()==1)&&move.getDestinationFileAsInt()==move.getOriginFileAsInt())
-                            return true;
-                    }
-                    //8 if it goes to end !!!!!!!
-                    else{
-                        if(move.getDestinationRank()-move.getOriginRank()==1 && move.getDestinationFileAsInt()==move.getOriginFileAsInt())
-                            return true;
-                    }
+
+        if(move.getPiece().getColor()==Piece.Color.WHITE){
+            if(move.getCapturedPiece() == null){
+                if(move.getOriginRank()==2){
+                    if((move.getDestinationRank()-move.getOriginRank()==2 || move.getDestinationRank()-move.getOriginRank()==1)&&move.getDestinationFileAsInt()==move.getOriginFileAsInt())
+                        return true;
+                }
+                //8 if it goes to end !!!!!!!
+                else{
+                    if(move.getDestinationRank()-move.getOriginRank()==1 && move.getDestinationFileAsInt()==move.getOriginFileAsInt())
+                        return true;
                 }
             }
-            else{
-                if(move.getCapturedPiece() == null){
-                    if(move.getOriginRank()==7){
-                        if((move.getDestinationRank()-move.getOriginRank()==-2 || move.getDestinationRank()-move.getOriginRank()==-1)&&move.getDestinationFileAsInt()==move.getOriginFileAsInt())
-                            return true;
-                    }
-                    else{
-                        if(move.getDestinationRank()-move.getOriginRank()==-1 && move.getDestinationFileAsInt()==move.getOriginFileAsInt())
-                            return true;
-                    }
+            else if(move.getCapturedPiece() != null){
+                if(move.getDestinationRank()-move.getOriginRank()==1 && Math.abs(move.getDestinationFileAsInt()-move.getOriginFileAsInt())==1){
+                    return true;
                 }
-
             }
         }
+        else{
+            if(move.getCapturedPiece() == null){
+                if(move.getOriginRank()==7){
+                    if((move.getDestinationRank()-move.getOriginRank()==-2 || move.getDestinationRank()-move.getOriginRank()==-1)&&move.getDestinationFileAsInt()==move.getOriginFileAsInt())
+                        return true;
+                }
+                else{
+                    if(move.getDestinationRank()-move.getOriginRank()==-1 && move.getDestinationFileAsInt()==move.getOriginFileAsInt())
+                        return true;
+                }
+            }
+            else if(move.getCapturedPiece() != null){
+                if(move.getDestinationRank()-move.getOriginRank()==-1 && Math.abs(move.getDestinationFileAsInt()-move.getOriginFileAsInt())==1){
+                    return true;
+                }
+            }
+        }
+
 
         // all other cases
         return false;
