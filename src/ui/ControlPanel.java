@@ -13,6 +13,9 @@ import java.awt.event.ActionListener;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,7 @@ import java.util.Observer;
 public class ControlPanel extends JPanel implements Serializable, Observer { //Observer
 
     private GameModel gameModel;
+
 
     private JButton undoButton;
     private JButton saveButton;
@@ -47,17 +51,18 @@ public class ControlPanel extends JPanel implements Serializable, Observer { //O
                 State state = new State();
                 List<Piece> pieces = StatePieces();
                 List<location> locations = StateLocations();
-                state.setInput(1);
+                //state.setInput(1);
                 state.setPieces(pieces);
                 state.setLocations(locations);
                 String path = "G:\\My Drive\\GRun\\Chess_java\\src\\Data.dat";
 
-                ObjectOutputStream objOut = null;
-                FileOutputStream fileOut = null;
+                ObjectOutputStream objOut;
+                FileOutputStream fileOut;
                 try{
                     fileOut = new FileOutputStream(path);
                     objOut = new ObjectOutputStream (fileOut);
                     objOut.writeObject(state);
+                    //gameFrame.showSaveDialog();
 
                     if (objOut!=null){
                         objOut.close();
@@ -94,6 +99,39 @@ fileOut.close();
         });
         loadButton = new JButton("Load Game");
         loadButton.setEnabled(true);
+        loadButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                State data = null;
+                ObjectInputStream objInputStream = null;
+                FileInputStream inputStream = null;
+                try{
+                    inputStream = new FileInputStream("G:\\My Drive\\GRun\\Chess_java\\src\\Data.dat");
+                    objInputStream = new ObjectInputStream (inputStream);
+
+                    data = (State)objInputStream.readObject();
+                    objInputStream.close();
+
+                } catch (FileNotFoundException e1) {
+                    e1.printStackTrace();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                } catch (ClassNotFoundException e1) {
+                    e1.printStackTrace();
+                }finally{
+                    if (objInputStream != null){
+                        try{objInputStream.close();}catch (Exception e1){}
+                    }
+                    else if (inputStream != null){
+                        try{inputStream.close();}catch (Exception e1){}
+                    }
+                }
+                System.out.println(data);
+                System.out.println(data.getInput());
+                System.out.println(data.getPieces());
+                System.out.println(data.getPieces().get(0).getType());
+            }
+        });
 
         this.add(undoButton);
         this.add(saveButton);

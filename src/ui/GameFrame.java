@@ -56,6 +56,14 @@ public class GameFrame extends JFrame implements Observer{
         JOptionPane.showMessageDialog(this, "That's a Checkmate!", "Checkmate", JOptionPane.WARNING_MESSAGE);
     }
 
+    public void showSaveDialog() {
+        JOptionPane.showMessageDialog(this, "Saved", "Save game", JOptionPane.WARNING_MESSAGE);
+    }
+
+    public void showLoadDialog() {
+        JOptionPane.showMessageDialog(this, "Loaded", "Load game", JOptionPane.WARNING_MESSAGE);
+    }
+
     private void loadInterface() {
         initializeMenuBar();
         initializePanels();
