@@ -70,6 +70,7 @@ public class Board {
     }
 
     public static void loadPieceSet(List<Piece> pieces, List<util.location> locations) {
+        initializeSquares();
         Iterator<Piece> whiteBishopsIterator = PieceSet.getPieces(Piece.Color.WHITE, Piece.Type.BISHOP).iterator();
         Iterator<Piece> blackBishopsIterator = PieceSet.getPieces(Piece.Color.BLACK, Piece.Type.BISHOP).iterator();
         Iterator<Piece> whiteKingsIterator = PieceSet.getPieces(Piece.Color.WHITE, Piece.Type.KING).iterator();
