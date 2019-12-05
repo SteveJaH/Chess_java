@@ -7,6 +7,8 @@ import ui.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Time;
+import java.util.List;
 import java.util.Observable;
 
 public class GameModel extends Observable {
@@ -16,6 +18,8 @@ public class GameModel extends Observable {
     private TimerPanel timerPanel;
     private ControlPanel controlPanel;
     private MoveHistoryPanel moveHistoryPanel;
+
+    private Piece.Color color;
 
     private Timer whiteTimer;
     private Timer blackTimer;
@@ -45,6 +49,7 @@ public class GameModel extends Observable {
         Board.executeMove(move);
         moveHistoryPanel.printMove(move);
         boardPanel.executeMove(move);
+        color = move.getPiece().getColor();
         switchTimer(move);
         if (MoveValidator.isCheckMove(move)) {
             if (MoveValidator.isCheckMate(move)) {
@@ -82,6 +87,54 @@ public class GameModel extends Observable {
             }
         });
     }
+
+    public void setColor(Piece.Color color) {
+        MoveValidator.setColor(color);
+    }
+
+    public List<MoveLogger.MoveRound> getMoveList() {
+        return MoveLogger.getMoveList();
+    }
+
+    public Piece.Color getColor() {
+        return color;
+    }
+
+    public String getHistory() {
+        return moveHistoryPanel.getHistory();
+    }
+
+    public void setHistory(String x) {
+        moveHistoryPanel.setHistory(x);
+    }
+
+    public Time getWhiteTime() {
+        return timerPanel.getWhiteTime();
+    }
+
+    public Time getBlackTime() {
+        return timerPanel.getBlackTime();
+    }
+
+    public void setWhiteTime(Time x) {
+        timerPanel.setWhiteTime(x);
+    }
+
+    public void setBlackTime(Time x) {
+        timerPanel.setBlackTime(x);
+    }
+
+    public void loadTimer(Piece.Color color) {
+        if(color == Piece.Color.WHITE){
+            whiteTimer.stop();
+            blackTimer.start();
+        }
+        else if(color == Piece.Color.BLACK){
+            blackTimer.stop();
+            whiteTimer.start();
+        }
+    }
+
 
     private void switchTimer(Move move) {
         if(move.getPiece().getColor() == Piece.Color.WHITE){

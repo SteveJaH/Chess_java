@@ -21,6 +21,15 @@ public class MoveValidator {
         currentMoveColor = Piece.Color.WHITE;
     }
 
+    public static void setColor(Piece.Color color){
+        if(color == Piece.Color.WHITE){
+            currentMoveColor = Piece.Color.BLACK;
+        }
+        else{
+            currentMoveColor = Piece.Color.WHITE;
+        }
+    }
+
     private static Piece.Color currentMoveColor;
 
     public static boolean validateMove(Move move) {

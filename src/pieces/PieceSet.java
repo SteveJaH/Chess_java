@@ -74,6 +74,90 @@ public class PieceSet {
         }
     }
 
+    public static void loadPieceSet(List<Piece> pieces) {
+        pieceSet = new LinkedHashMap<Piece.Color, Map<Piece.Type, List<Piece>>>();
+
+        Map<Piece.Type, List<Piece>> whitePieces = new LinkedHashMap<Piece.Type, List<Piece>>();
+        Map<Piece.Type, List<Piece>> blackPieces = new LinkedHashMap<Piece.Type, List<Piece>>();
+
+        for(int i=0; i<pieces.size(); i++) {
+            switch (pieces.get(i).getColor()) {
+                case WHITE:
+                    switch (pieces.get(i).getType()) {
+                        case KING:
+                            List<Piece> whiteKings = new ArrayList<Piece>();
+                            whiteKings.add(new King(Piece.Color.WHITE));
+                            whitePieces.put(Piece.Type.KING, whiteKings);
+                            break;
+                        case ROOK:
+                            List<Piece> whiteRooks = new ArrayList<Piece>();
+                            whiteRooks.add(new Rook(Piece.Color.WHITE));
+                            whitePieces.put(Piece.Type.ROOK, whiteRooks);
+                            break;
+                        case BISHOP:
+                            List<Piece> whiteBishops = new ArrayList<Piece>();
+                            whiteBishops.add(new Bishop(Piece.Color.WHITE));
+                            whitePieces.put(Piece.Type.BISHOP, whiteBishops);
+                            break;
+                        case QUEEN:
+                            List<Piece> whiteQueens = new ArrayList<Piece>();
+                            whiteQueens.add(new Queen(Piece.Color.WHITE));
+                            whitePieces.put(Piece.Type.QUEEN, whiteQueens);
+                            break;
+                        case KNIGHT:
+                            List<Piece> whiteKnights = new ArrayList<Piece>();
+                            whiteKnights.add(new Knight(Piece.Color.WHITE));
+                            whitePieces.put(Piece.Type.KNIGHT, whiteKnights);
+                            break;
+                        case PAWN:
+                            List<Piece> whitePawns = new ArrayList<Piece>();
+                            whitePawns.add(new Pawn(Piece.Color.WHITE));
+                            whitePieces.put(Piece.Type.PAWN, whitePawns);
+                            break;
+                    }
+                    pieceSet.put(Piece.Color.WHITE, whitePieces);
+                    break;
+                case BLACK:
+                    switch (pieces.get(i).getType()) {
+                        case KING:
+                            List<Piece> blackKings = new ArrayList<Piece>();
+                            blackKings.add(new King(Piece.Color.BLACK));
+                            blackPieces.put(Piece.Type.KING, blackKings);
+                            break;
+                        case ROOK:
+                            List<Piece> blackRooks = new ArrayList<Piece>();
+                            blackRooks.add(new Rook(Piece.Color.BLACK));
+                            blackPieces.put(Piece.Type.ROOK, blackRooks);
+                            break;
+                        case BISHOP:
+                            List<Piece> blackBishops = new ArrayList<Piece>();
+                            blackBishops.add(new Bishop(Piece.Color.BLACK));
+                            blackPieces.put(Piece.Type.BISHOP, blackBishops);
+                            break;
+                        case QUEEN:
+                            List<Piece> blackQueens = new ArrayList<Piece>();
+                            blackQueens.add(new Queen(Piece.Color.BLACK));
+                            blackPieces.put(Piece.Type.QUEEN, blackQueens);
+                            break;
+                        case KNIGHT:
+                            List<Piece> blackKnights = new ArrayList<Piece>();
+                            blackKnights.add(new Knight(Piece.Color.BLACK));
+                            blackPieces.put(Piece.Type.KNIGHT, blackKnights);
+                            break;
+                        case PAWN:
+                            List<Piece> blackPawns = new ArrayList<Piece>();
+                            blackPawns.add(new Pawn(Piece.Color.BLACK));
+                            blackPieces.put(Piece.Type.PAWN, blackPawns);
+                            break;
+                    }
+                    pieceSet.put(Piece.Color.BLACK, blackPieces);
+                    break;
+            }
+        }
+
+
+    }
+
     private static void initializePieceSet() {
         /*
         TODO-piece

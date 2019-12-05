@@ -20,6 +20,14 @@ public class MoveHistoryPanel extends JPanel implements Observer {
         initialize();
     }
 
+    public String getHistory() {
+        return moveHistoryContent;
+    }
+
+    public void setHistory(String x) {
+        moveHistoryContent=x;
+    }
+
     public void printMove(Move move) {
         String newMoveEntry = "";
         newMoveEntry += move.getPiece().getColor().toString() + " ";

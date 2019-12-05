@@ -9,6 +9,7 @@ import util.Move;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -116,6 +117,71 @@ public class BoardPanel extends JPanel implements Observer {
         squarePanels[f][r].setSize(new Dimension(SQUARE_DIMENSION, SQUARE_DIMENSION));
         squarePanels[f][r].setBackground(f % 2 == r % 2 ? Color.GRAY : Color.WHITE);
         boardPanel.add(squarePanels[f][r]);
+    }
+
+    public void loadPieceSet(List<Piece> pieces, List<util.location> locations) {
+        Iterator<Piece> whiteRooksIterator = PieceSet.getPieces(Piece.Color.WHITE, Piece.Type.ROOK).iterator();
+        Iterator<Piece> blackRooksIterator = PieceSet.getPieces(Piece.Color.BLACK, Piece.Type.ROOK).iterator();
+        Iterator<Piece> whiteKingsIterator = PieceSet.getPieces(Piece.Color.WHITE, Piece.Type.KING).iterator();
+        Iterator<Piece> blackKingsIterator = PieceSet.getPieces(Piece.Color.BLACK, Piece.Type.KING).iterator();
+        Iterator<Piece> whiteBishopsIterator = PieceSet.getPieces(Piece.Color.WHITE, Piece.Type.BISHOP).iterator();
+        Iterator<Piece> blackBishopsIterator = PieceSet.getPieces(Piece.Color.BLACK, Piece.Type.BISHOP).iterator();
+        Iterator<Piece> whiteQueensIterator = PieceSet.getPieces(Piece.Color.WHITE, Piece.Type.QUEEN).iterator();
+        Iterator<Piece> blackQueensIterator = PieceSet.getPieces(Piece.Color.BLACK, Piece.Type.QUEEN).iterator();
+        Iterator<Piece> whiteKnightsIterator = PieceSet.getPieces(Piece.Color.WHITE, Piece.Type.KNIGHT).iterator();
+        Iterator<Piece> blackKnightsIterator = PieceSet.getPieces(Piece.Color.BLACK, Piece.Type.KNIGHT).iterator();
+        Iterator<Piece> whitePawnsIterator = PieceSet.getPieces(Piece.Color.WHITE, Piece.Type.PAWN).iterator();
+        Iterator<Piece> blackPawnsIterator = PieceSet.getPieces(Piece.Color.BLACK, Piece.Type.PAWN).iterator();
+
+        for(int i=0; i<pieces.size(); i++) {
+            switch (pieces.get(i).getColor()) {
+                case WHITE:
+                    switch (pieces.get(i).getType()){
+                        case KING:
+                            getSquarePanel(locations.get(i).getx(), locations.get(i).gety()).add(getPieceImageLabel(whiteKingsIterator.next()));
+                            break;
+                        case ROOK:
+                            getSquarePanel(locations.get(i).getx(), locations.get(i).gety()).add(getPieceImageLabel(whiteRooksIterator.next()));
+                            break;
+                        case BISHOP:
+                            getSquarePanel(locations.get(i).getx(), locations.get(i).gety()).add(getPieceImageLabel(whiteBishopsIterator.next()));
+                            break;
+                        case QUEEN:
+                            getSquarePanel(locations.get(i).getx(), locations.get(i).gety()).add(getPieceImageLabel(whiteQueensIterator.next()));
+                            break;
+                        case KNIGHT:
+                            getSquarePanel(locations.get(i).getx(), locations.get(i).gety()).add(getPieceImageLabel(whiteKnightsIterator.next()));
+                            break;
+                        case PAWN:
+                            getSquarePanel(locations.get(i).getx(), locations.get(i).gety()).add(getPieceImageLabel(whitePawnsIterator.next()));
+                            break;
+                    }
+                    break;
+                case BLACK:
+                    switch (pieces.get(i).getType()){
+                        case KING:
+                            getSquarePanel(locations.get(i).getx(), locations.get(i).gety()).add(getPieceImageLabel(blackKingsIterator.next()));
+                            break;
+                        case ROOK:
+                            getSquarePanel(locations.get(i).getx(), locations.get(i).gety()).add(getPieceImageLabel(blackRooksIterator.next()));
+                            break;
+                        case BISHOP:
+                            getSquarePanel(locations.get(i).getx(), locations.get(i).gety()).add(getPieceImageLabel(blackBishopsIterator.next()));
+                            break;
+                        case QUEEN:
+                            getSquarePanel(locations.get(i).getx(), locations.get(i).gety()).add(getPieceImageLabel(blackQueensIterator.next()));
+                            break;
+                        case KNIGHT:
+                            getSquarePanel(locations.get(i).getx(), locations.get(i).gety()).add(getPieceImageLabel(blackKnightsIterator.next()));
+                            break;
+                        case PAWN:
+                            getSquarePanel(locations.get(i).getx(), locations.get(i).gety()).add(getPieceImageLabel(blackPawnsIterator.next()));
+                            break;
+                    }
+                    break;
+            }
+        }
+
     }
 
     private void initializePieces() {

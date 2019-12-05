@@ -2,9 +2,9 @@ package ui;
 
 import board.Board;
 import pieces.Piece;
-import util.GameModel;
-import util.State;
-import util.location;
+import pieces.PieceSet;
+import util.*;
+import ui.TimerPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +17,7 @@ import java.io.ObjectInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -25,7 +26,12 @@ import java.util.Observer;
 public class ControlPanel extends JPanel implements Serializable, Observer { //Observer
 
     private GameModel gameModel;
+    private TimerPanel timerPanel;
 
+    private void initializeUIComponents() {
+        timerPanel = new TimerPanel(gameModel);
+
+    }
 
     private JButton undoButton;
     private JButton saveButton;
@@ -38,6 +44,7 @@ public class ControlPanel extends JPanel implements Serializable, Observer { //O
     }
 
     private void initialize() {
+        initializeUIComponents();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setLayout(new GridLayout(0, 1));
 
@@ -51,11 +58,22 @@ public class ControlPanel extends JPanel implements Serializable, Observer { //O
                 State state = new State();
                 List<Piece> pieces = StatePieces();
                 List<location> locations = StateLocations();
+                List<MoveLogger.MoveRound> moveHistory;
+                Piece.Color color = gameModel.getColor();
+                String history = gameModel.getHistory();
+                moveHistory = gameModel.getMoveList();
+                System.out.println(history);
+                Time a = gameModel.getWhiteTime();
+                Time b = gameModel.getBlackTime();
+                time time = new time(a, b);
+                state.setTimes(time);
                 //state.setInput(1);
                 state.setPieces(pieces);
                 state.setLocations(locations);
+                state.setHistory(history);
+                state.setColor(color);
+                //state.setMoveList(moveHistory);
                 String path = "G:\\My Drive\\GRun\\Chess_java\\src\\Data.dat";
-
                 ObjectOutputStream objOut;
                 FileOutputStream fileOut;
                 try{
@@ -126,10 +144,16 @@ fileOut.close();
                         try{inputStream.close();}catch (Exception e1){}
                     }
                 }
-                System.out.println(data);
-                System.out.println(data.getInput());
-                System.out.println(data.getPieces());
-                System.out.println(data.getPieces().get(0).getType());
+
+                //System.out.println(data.getPieces().get(0).getType());
+                //System.out.println(data.getTimes().getblackTime());
+                gameModel.setBlackTime(data.getTimes().getblackTime());
+                gameModel.loadTimer(data.getColor());
+                gameModel.setColor(data.getColor());
+                gameModel.setHistory(data.getHistory());
+                Board.loadPieceSet(data.getPieces(), data.getLocations());
+                PieceSet.loadPieceSet(data.getPieces());
+                BoardPanel.loadPieceSet(data.getPieces(), data.getLocations());
             }
         });
 

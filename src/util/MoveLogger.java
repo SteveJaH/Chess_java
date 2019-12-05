@@ -2,15 +2,16 @@ package util;
 
 import pieces.Piece;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoveLogger {
+public class MoveLogger implements Serializable {
 
     /**
      * Wrapper class for a pair of moves.
      */
-    private static class MoveRound {
+    public static class MoveRound implements Serializable{
         private Move whiteMove;
         private Move blackMove;
 
@@ -44,6 +45,10 @@ public class MoveLogger {
             moveHistory.add(new MoveRound(moveRoundBuffer.get(0), moveRoundBuffer.get(1)));
             moveRoundBuffer.clear();
         }
+    }
+
+    public static List<MoveRound> getMoveList() {
+        return moveHistory;
     }
 
     private void initialize() {

@@ -14,7 +14,6 @@ public class TimerPanel extends JPanel implements Observer {
     private GameModel gameModel;
     private Time whiteTime;
     private Time blackTime;
-    private Time stepsize;
     private LocalTime whiteLocal;
     private LocalTime blackLocal;
     //private Calendar whiteCalendar;
@@ -61,6 +60,23 @@ public class TimerPanel extends JPanel implements Observer {
             Show whiteTimerStatusPanel
             Blind blackTimerStatusPanel
          */
+    }
+
+    public Time getWhiteTime(){
+        System.out.println(whiteTime);
+        return whiteTime;
+    }
+
+    public void setWhiteTime(Time x){
+        whiteTime = x;
+    }
+
+    public Time getBlackTime(){
+        return blackTime;
+    }
+
+    public void setBlackTime(Time x){
+        blackTime = x;
     }
 
     public void blackTimerTikTok() {

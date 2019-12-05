@@ -5,6 +5,7 @@ import util.Core;
 import util.Move;
 
 import java.util.Iterator;
+import java.util.List;
 
 public class Board {
 
@@ -66,6 +67,71 @@ public class Board {
                 grid[i][j] = new Square();
             }
         }
+    }
+
+    public static void loadPieceSet(List<Piece> pieces, List<util.location> locations) {
+        Iterator<Piece> whiteBishopsIterator = PieceSet.getPieces(Piece.Color.WHITE, Piece.Type.BISHOP).iterator();
+        Iterator<Piece> blackBishopsIterator = PieceSet.getPieces(Piece.Color.BLACK, Piece.Type.BISHOP).iterator();
+        Iterator<Piece> whiteKingsIterator = PieceSet.getPieces(Piece.Color.WHITE, Piece.Type.KING).iterator();
+        Iterator<Piece> blackKingsIterator = PieceSet.getPieces(Piece.Color.BLACK, Piece.Type.KING).iterator();
+        Iterator<Piece> whiteKnightsIterator = PieceSet.getPieces(Piece.Color.WHITE, Piece.Type.KNIGHT).iterator();
+        Iterator<Piece> blackKnightsIterator = PieceSet.getPieces(Piece.Color.BLACK, Piece.Type.KNIGHT).iterator();
+        Iterator<Piece> whitePawnsIterator = PieceSet.getPieces(Piece.Color.WHITE, Piece.Type.PAWN).iterator();
+        Iterator<Piece> blackPawnsIterator = PieceSet.getPieces(Piece.Color.BLACK, Piece.Type.PAWN).iterator();
+        Iterator<Piece> whiteQueensIterator = PieceSet.getPieces(Piece.Color.WHITE, Piece.Type.QUEEN).iterator();
+        Iterator<Piece> blackQueensIterator = PieceSet.getPieces(Piece.Color.BLACK, Piece.Type.QUEEN).iterator();
+        Iterator<Piece> whiteRooksIterator = PieceSet.getPieces(Piece.Color.WHITE, Piece.Type.ROOK).iterator();
+        Iterator<Piece> blackRooksIterator = PieceSet.getPieces(Piece.Color.BLACK, Piece.Type.ROOK).iterator();
+
+        for(int i=0; i<pieces.size(); i++) {
+            switch (pieces.get(i).getColor()) {
+                case WHITE:
+                    switch (pieces.get(i).getType()){
+                        case KING:
+                            getSquare(locations.get(i).getx(), locations.get(i).gety()).setCurrentPiece(whiteKingsIterator.next());
+                            break;
+                        case ROOK:
+                            getSquare(locations.get(i).getx(), locations.get(i).gety()).setCurrentPiece(whiteRooksIterator.next());
+                            break;
+                        case BISHOP:
+                            getSquare(locations.get(i).getx(), locations.get(i).gety()).setCurrentPiece(whiteBishopsIterator.next());
+                            break;
+                        case QUEEN:
+                            getSquare(locations.get(i).getx(), locations.get(i).gety()).setCurrentPiece(whiteQueensIterator.next());
+                            break;
+                        case KNIGHT:
+                            getSquare(locations.get(i).getx(), locations.get(i).gety()).setCurrentPiece(whiteKnightsIterator.next());
+                            break;
+                        case PAWN:
+                            getSquare(locations.get(i).getx(), locations.get(i).gety()).setCurrentPiece(whitePawnsIterator.next());
+                            break;
+                    }
+                    break;
+                case BLACK:
+                    switch (pieces.get(i).getType()){
+                        case KING:
+                            getSquare(locations.get(i).getx(), locations.get(i).gety()).setCurrentPiece(blackKingsIterator.next());
+                            break;
+                        case ROOK:
+                            getSquare(locations.get(i).getx(), locations.get(i).gety()).setCurrentPiece(blackRooksIterator.next());
+                            break;
+                        case BISHOP:
+                            getSquare(locations.get(i).getx(), locations.get(i).gety()).setCurrentPiece(blackBishopsIterator.next());
+                            break;
+                        case QUEEN:
+                            getSquare(locations.get(i).getx(), locations.get(i).gety()).setCurrentPiece(blackQueensIterator.next());
+                            break;
+                        case KNIGHT:
+                            getSquare(locations.get(i).getx(), locations.get(i).gety()).setCurrentPiece(blackKnightsIterator.next());
+                            break;
+                        case PAWN:
+                            getSquare(locations.get(i).getx(), locations.get(i).gety()).setCurrentPiece(blackPawnsIterator.next());
+                            break;
+                    }
+                    break;
+            }
+        }
+
     }
 
     private static void initializePieces() {
